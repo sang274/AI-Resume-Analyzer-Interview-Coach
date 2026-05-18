@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace AIResumeAnalyzer.Domain.Enums
 {
-    public enum ResumeStatus
+    public enum InterviewType
     {
-        Pending = 1,
-        Processing = 2,
-        Completed = 3,
-        Failed = 4
+        Technical = 1,
+        Behavioral = 2,
+        Mixed = 3
     }
 }

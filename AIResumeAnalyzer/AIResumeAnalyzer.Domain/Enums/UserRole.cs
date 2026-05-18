@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace AIResumeAnalyzer.Domain.Enums
 {
-    public enum ResumeStatus
+    public enum UserRole
     {
-        Pending = 1,
-        Processing = 2,
-        Completed = 3,
-        Failed = 4
+        Admin = 1,
+        User = 2
     }
 }
