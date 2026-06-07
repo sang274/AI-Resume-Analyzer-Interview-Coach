@@ -1,4 +1,5 @@
 ﻿using AIResumeAnalyzer.Application.Common.Settings;
+using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
 using AIResumeAnalyzer.Application.Interfaces.IAuthenticateService;
 using AIResumeAnalyzer.Application.Interfaces.IRepository;
 using AIResumeAnalyzer.Application.Interfaces.Persistence;
@@ -37,14 +38,16 @@ namespace AIResumeAnalyzer.Infrastructure
         }
 
         public static IServiceCollection AddApplication(
-        this IServiceCollection services)
+            this IServiceCollection services)
         {
             services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssembly(
                     Assembly.GetExecutingAssembly()));
 
-            services.AddValidatorsFromAssembly(
-                Assembly.GetExecutingAssembly());
+            //services.AddValidatorsFromAssembly(
+            //    Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(typeof(RegisterCommand).Assembly);
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterCommand).Assembly));
 
             return services;
         }
