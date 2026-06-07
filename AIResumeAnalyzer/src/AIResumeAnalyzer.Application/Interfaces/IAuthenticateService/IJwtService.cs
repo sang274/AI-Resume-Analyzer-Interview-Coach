@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeAnalyzer.Application.Interfaces.IJwtService
+namespace AIResumeAnalyzer.Application.Interfaces.IAuthenticateService
 {
     public interface IJwtService
     {
