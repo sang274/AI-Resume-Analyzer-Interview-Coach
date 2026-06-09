@@ -1,4 +1,5 @@
 ﻿using AIResumeAnalyzer.Application.Features.Auth.Commands.Login;
+using AIResumeAnalyzer.Application.Features.Auth.Commands.Refresh_Token;
 using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -18,8 +19,7 @@ namespace AIResumeAnalyzer.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(
-            RegisterCommand command)
+        public async Task<IActionResult> Register(RegisterCommand command)
         {
             var result = await _mediator.Send(command);
 
@@ -27,10 +27,18 @@ namespace AIResumeAnalyzer.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(
-        LoginCommand command)
+        public async Task<IActionResult> Login(LoginCommand command)
         {
             var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenCommand command)
+        {
+            var result =
+                await _mediator.Send(command);
 
             return Ok(result);
         }

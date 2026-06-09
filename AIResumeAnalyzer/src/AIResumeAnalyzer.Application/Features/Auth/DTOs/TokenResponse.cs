@@ -6,16 +6,10 @@ using System.Threading.Tasks;
 
 namespace AIResumeAnalyzer.Application.Features.Auth.DTOs
 {
-    public class LoginResponse
+    public class TokenResponse
     {
         public string AccessToken { get; set; } = string.Empty;
 
         public string RefreshToken { get; set; } = string.Empty;
-
-        public Guid UserId { get; set; }
-
-        public string FullName { get; set; } = string.Empty;
-
-        public string Email { get; set; } = string.Empty;
     }
 }

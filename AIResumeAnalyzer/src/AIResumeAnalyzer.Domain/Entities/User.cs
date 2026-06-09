@@ -23,5 +23,8 @@ namespace AIResumeAnalyzer.Domain.Entities
 
         public ICollection<InterviewSession> InterviewSessions { get; set; }
             = new List<InterviewSession>();
+
+        public ICollection<RefreshToken> RefreshTokens { get; set; }
+            = new List<RefreshToken>();
     }
 }
