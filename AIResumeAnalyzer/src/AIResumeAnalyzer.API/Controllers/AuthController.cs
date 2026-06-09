@@ -1,5 +1,7 @@
-﻿using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
+﻿using AIResumeAnalyzer.Application.Features.Auth.Commands.Login;
+using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AIResumeAnalyzer.API.Controllers
@@ -22,6 +24,22 @@ namespace AIResumeAnalyzer.API.Controllers
             var result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(
+        LoginCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult TestAccessToken()
+        {
+            return Ok("JWT Works!");
         }
     }
 }

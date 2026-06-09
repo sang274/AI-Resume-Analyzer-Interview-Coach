@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Auth\Commands\Login\" />
     <Folder Include="Features\Auth\Validators\" />
     <Folder Include="Features\Interview\" />
     <Folder Include="Features\JobMatching\" />
