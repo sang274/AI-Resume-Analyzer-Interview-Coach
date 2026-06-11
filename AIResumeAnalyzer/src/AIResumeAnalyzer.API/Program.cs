@@ -1,3 +1,4 @@
+using AIResumeAnalyzer.API.Extensions;
 using AIResumeAnalyzer.Application.Common.Settings;
 using AIResumeAnalyzer.Infrastructure;
 using AIResumeAnalyzer.Infrastructure.Persistence;
@@ -76,6 +77,8 @@ builder.Services.AddSwaggerGen(options =>
 
 
 var app = builder.Build();
+
+app.UseGlobalExceptionMiddleware();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
