@@ -59,6 +59,15 @@ namespace AIResumeAnalyzer.Application.Features.Auth.Commands.Login
 
             var accessToken = _jwtService.GenerateAccessToken(user);
 
+            var oldTokens = await _refreshTokenRepository.WhereAsync(
+                x => x.UserId == user.Id
+                && !x.IsRevoked);
+
+            foreach (var token in oldTokens)
+            {
+                token.IsRevoked = true;
+            }
+
             var refreshToken = _jwtService.GenerateRefreshToken();
 
             var refreshTokenEntity =

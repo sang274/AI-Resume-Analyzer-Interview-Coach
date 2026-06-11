@@ -14,8 +14,9 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
 
         Task<List<T>> GetAllAsync();
 
-        Task<T?> FirstOrDefaultAsync(
-        Expression<Func<T, bool>> predicate);
+        Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
+
+        Task<List<T>> WhereAsync(Expression<Func<T, bool>> predicate);
 
         Task AddAsync(T entity);
 

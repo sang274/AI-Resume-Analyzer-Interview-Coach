@@ -1,4 +1,5 @@
 ﻿using AIResumeAnalyzer.Application.Features.Auth.Commands.Login;
+using AIResumeAnalyzer.Application.Features.Auth.Commands.Logout;
 using AIResumeAnalyzer.Application.Features.Auth.Commands.Refresh_Token;
 using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
 using MediatR;
@@ -48,6 +49,19 @@ namespace AIResumeAnalyzer.API.Controllers
         public IActionResult TestAccessToken()
         {
             return Ok("JWT Works!");
+        }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _mediator.Send(
+                new LogoutCommand());
+
+            return Ok(new
+            {
+                Message = "Logged out successfully."
+            });
         }
     }
 }

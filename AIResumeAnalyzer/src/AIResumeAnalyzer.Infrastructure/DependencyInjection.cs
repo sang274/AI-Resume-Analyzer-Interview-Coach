@@ -24,6 +24,8 @@ namespace AIResumeAnalyzer.Infrastructure
                 options.UseNpgsql(
                     configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddHttpContextAccessor();
+
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -33,6 +35,8 @@ namespace AIResumeAnalyzer.Infrastructure
             services.AddScoped<IJwtService, JwtService>();
 
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             return services;
         }
