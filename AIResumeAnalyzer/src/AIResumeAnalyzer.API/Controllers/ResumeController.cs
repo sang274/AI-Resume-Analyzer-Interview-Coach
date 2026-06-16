@@ -1,5 +1,6 @@
 ﻿using AIResumeAnalyzer.Application.Features.Resumes.Commands.ParseResume;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetListMyResumes;
+using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetResumeById;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.UploadResume;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -38,6 +39,13 @@ namespace AIResumeAnalyzer.API.Controllers
                     new GetListMyResumesQuery());
 
             return Ok(result);
+        }
+
+        [HttpGet("{resumeId}")]
+        public async Task<IActionResult> GetById(Guid resumeId)
+        {
+            return Ok(
+                await _mediator.Send(new GetResumeByIdQuery(resumeId)));
         }
 
         [HttpPost("{resumeId}/parse")]
