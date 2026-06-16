@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeAnalyzer.Application.Features.Auth.Commands.UploadResume
+namespace AIResumeAnalyzer.Application.Features.Resumes.Commands.UploadResume
 {
     public record UploadResumeCommand(IFormFile File) : IRequest<Guid>;
 }

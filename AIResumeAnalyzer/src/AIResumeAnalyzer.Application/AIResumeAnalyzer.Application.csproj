@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Resume\**" />
+    <EmbeddedResource Remove="Features\Resume\**" />
+    <None Remove="Features\Resume\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Features\Auth\Validators\" />
     <Folder Include="Features\Interview\" />
     <Folder Include="Features\JobMatching\" />
-    <Folder Include="Features\Resume\Commands\" />
-    <Folder Include="Features\Resume\DTOs\" />
-    <Folder Include="Features\Resume\Validators\" />
-    <Folder Include="Features\Resume\Queries\" />
     <Folder Include="Interfaces\IRepository\" />
     <Folder Include="Interfaces\IAIService\" />
   </ItemGroup>
