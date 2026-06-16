@@ -16,12 +16,12 @@
     <Folder Include="Features\Resume\Queries\" />
     <Folder Include="Interfaces\IRepository\" />
     <Folder Include="Interfaces\IAIService\" />
-    <Folder Include="Interfaces\IFileService\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="MediatR" Version="14.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.3.10" />
   </ItemGroup>
 
   <ItemGroup>

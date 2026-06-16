@@ -24,4 +24,8 @@
     <ProjectReference Include="..\AIResumeAnalyzer.Infrastructure\AIResumeAnalyzer.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\resumes\" />
+  </ItemGroup>
+
 </Project>

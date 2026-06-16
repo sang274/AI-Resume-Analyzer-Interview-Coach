@@ -1,11 +1,13 @@
 ﻿using AIResumeAnalyzer.Application.Common.Settings;
 using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
 using AIResumeAnalyzer.Application.Interfaces.IAuthenticateService;
+using AIResumeAnalyzer.Application.Interfaces.IFileService;
 using AIResumeAnalyzer.Application.Interfaces.IRepository;
 using AIResumeAnalyzer.Application.Interfaces.Persistence;
 using AIResumeAnalyzer.Infrastructure.Persistence;
 using AIResumeAnalyzer.Infrastructure.Repositories;
 using AIResumeAnalyzer.Infrastructure.Services.AuthenticateService;
+using AIResumeAnalyzer.Infrastructure.Services.FileService;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +39,8 @@ namespace AIResumeAnalyzer.Infrastructure
             services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            services.AddScoped<IFileStorageService, LocalFileStorageService>();
 
             return services;
         }
