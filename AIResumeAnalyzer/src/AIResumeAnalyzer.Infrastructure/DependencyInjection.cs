@@ -42,6 +42,8 @@ namespace AIResumeAnalyzer.Infrastructure
 
             services.AddScoped<IFileStorageService, LocalFileStorageService>();
 
+            services.AddScoped<IResumeParserService, ResumeParserService>();
+
             return services;
         }
 

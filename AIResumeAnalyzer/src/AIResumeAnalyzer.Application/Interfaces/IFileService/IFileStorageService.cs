@@ -12,5 +12,7 @@ namespace AIResumeAnalyzer.Application.Interfaces.IFileService
         Task<string> SaveResumeAsync(
             IFormFile file,
             CancellationToken cancellationToken);
+
+        string GetPhysicalPath(string fileUrl);
     }
 }

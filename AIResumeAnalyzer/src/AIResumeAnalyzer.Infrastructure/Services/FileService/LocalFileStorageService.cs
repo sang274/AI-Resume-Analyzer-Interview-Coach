@@ -37,5 +37,10 @@ namespace AIResumeAnalyzer.Infrastructure.Services.FileService
 
             return $"/uploads/resumes/{fileName}";
         }
+
+        public string GetPhysicalPath(string fileUrl)
+        {
+            return Path.Combine(_environment.WebRootPath, fileUrl.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+        }
     }
 }
