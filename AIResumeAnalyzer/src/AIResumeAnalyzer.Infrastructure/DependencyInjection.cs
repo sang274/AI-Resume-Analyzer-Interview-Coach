@@ -1,13 +1,11 @@
 ﻿using AIResumeAnalyzer.Application.Common.Settings;
 using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
-using AIResumeAnalyzer.Application.Interfaces.IAIService;
 using AIResumeAnalyzer.Application.Interfaces.IAuthenticateService;
 using AIResumeAnalyzer.Application.Interfaces.IFileService;
 using AIResumeAnalyzer.Application.Interfaces.IRepository;
 using AIResumeAnalyzer.Application.Interfaces.Persistence;
 using AIResumeAnalyzer.Infrastructure.Persistence;
 using AIResumeAnalyzer.Infrastructure.Repositories;
-using AIResumeAnalyzer.Infrastructure.Services.AIService;
 using AIResumeAnalyzer.Infrastructure.Services.AuthenticateService;
 using AIResumeAnalyzer.Infrastructure.Services.FileService;
 using FluentValidation;
@@ -29,10 +27,6 @@ namespace AIResumeAnalyzer.Infrastructure
                     configuration.GetConnectionString("DefaultConnection")));
 
             services.AddHttpContextAccessor();
-
-            services.Configure<GeminiSettings>(configuration.GetSection("Gemini"));
-
-            services.AddHttpClient<IAIResumeAnalyzerService, AIResumeAnalyzerService>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
@@ -60,6 +54,8 @@ namespace AIResumeAnalyzer.Infrastructure
                 cfg.RegisterServicesFromAssembly(
                     Assembly.GetExecutingAssembly()));
 
+            //services.AddValidatorsFromAssembly(
+            //    Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(typeof(RegisterCommand).Assembly);
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterCommand).Assembly));
 

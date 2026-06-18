@@ -1,5 +1,4 @@
-﻿using AIResumeAnalyzer.Application.Features.AI.Commands.AnalyzeResume;
-using AIResumeAnalyzer.Application.Features.Resumes.Commands.ParseResume;
+﻿using AIResumeAnalyzer.Application.Features.Resumes.Commands.ParseResume;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetListMyResumes;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetResumeById;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.UploadResume;
@@ -57,17 +56,6 @@ namespace AIResumeAnalyzer.API.Controllers
             return Ok(new
             {
                 Message = "Resume parsed successfully."
-            });
-        }
-
-        [HttpPost("{resumeId}/analyze")]
-        public async Task<IActionResult> Analyze(Guid resumeId)
-        {
-            await _mediator.Send(new AnalyzeResumeCommand(resumeId));
-
-            return Ok(new
-            {
-                Message = "Resume analyzed successfully."
             });
         }
     }
