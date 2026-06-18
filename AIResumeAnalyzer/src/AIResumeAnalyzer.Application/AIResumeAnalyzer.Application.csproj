@@ -17,7 +17,6 @@
     <Folder Include="Features\Interview\" />
     <Folder Include="Features\JobMatching\" />
     <Folder Include="Interfaces\IRepository\" />
-    <Folder Include="Interfaces\IAIService\" />
   </ItemGroup>
 
   <ItemGroup>
