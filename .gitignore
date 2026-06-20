@@ -429,4 +429,4 @@ FodyWeavers.xsd
 *.msp
 
 # Personal Custom Configuration (AI Resume Analyzer)
-**/appsettings.Development.json
+AIResumeAnalyzer/src/AIResumeAnalyzer.API/appsettings.Development.json
