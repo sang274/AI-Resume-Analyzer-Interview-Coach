@@ -15,6 +15,7 @@
   <ItemGroup>
     <Folder Include="Features\Auth\Validators\" />
     <Folder Include="Features\Interview\" />
+    <Folder Include="Features\JobDescriptions\Queries\" />
     <Folder Include="Features\JobMatching\" />
     <Folder Include="Interfaces\IRepository\" />
   </ItemGroup>
