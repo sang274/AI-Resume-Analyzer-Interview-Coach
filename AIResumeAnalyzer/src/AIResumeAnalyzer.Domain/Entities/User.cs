@@ -26,5 +26,8 @@ namespace AIResumeAnalyzer.Domain.Entities
 
         public ICollection<RefreshToken> RefreshTokens { get; set; }
             = new List<RefreshToken>();
+
+        public ICollection<JobDescription> JobDescriptions { get; set; }
+            = new List<JobDescription>();
     }
 }
