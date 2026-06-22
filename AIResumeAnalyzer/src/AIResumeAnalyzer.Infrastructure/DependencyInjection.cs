@@ -3,6 +3,7 @@ using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
 using AIResumeAnalyzer.Application.Interfaces.IAIService;
 using AIResumeAnalyzer.Application.Interfaces.IAuthenticateService;
 using AIResumeAnalyzer.Application.Interfaces.IFileService;
+using AIResumeAnalyzer.Application.Interfaces.IJobService;
 using AIResumeAnalyzer.Application.Interfaces.IRepository;
 using AIResumeAnalyzer.Application.Interfaces.Persistence;
 using AIResumeAnalyzer.Infrastructure.Persistence;
@@ -33,6 +34,8 @@ namespace AIResumeAnalyzer.Infrastructure
             services.Configure<GeminiSettings>(configuration.GetSection("Gemini"));
 
             services.AddHttpClient<IAIResumeAnalyzerService, AIResumeAnalyzerService>();
+
+            services.AddHttpClient<IJobMatchingService, AIJobMatchingService>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
