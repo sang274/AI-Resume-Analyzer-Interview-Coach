@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeAnalyzer.Application.Features.JobDescriptions.Commands
+namespace AIResumeAnalyzer.Application.Features.JobDescriptions.Commands.Create
 {
     public class CreateJobDescriptionValidator : AbstractValidator<CreateJobDescriptionCommand>
     {

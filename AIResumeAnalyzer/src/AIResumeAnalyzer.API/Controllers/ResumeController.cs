@@ -35,9 +35,7 @@ namespace AIResumeAnalyzer.API.Controllers
         [HttpGet("my")]
         public async Task<IActionResult> GetMyResumes()
         {
-            var result =
-                await _mediator.Send(
-                    new GetListMyResumesQuery());
+            var result = await _mediator.Send(new GetListMyResumesQuery());
 
             return Ok(result);
         }
@@ -45,8 +43,7 @@ namespace AIResumeAnalyzer.API.Controllers
         [HttpGet("{resumeId}")]
         public async Task<IActionResult> GetById(Guid resumeId)
         {
-            return Ok(
-                await _mediator.Send(new GetResumeByIdQuery(resumeId)));
+            return Ok(await _mediator.Send(new GetResumeByIdQuery(resumeId)));
         }
 
         [HttpPost("{resumeId}/parse")]
