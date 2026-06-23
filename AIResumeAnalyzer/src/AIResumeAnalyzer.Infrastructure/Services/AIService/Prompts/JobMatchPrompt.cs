@@ -13,21 +13,25 @@ namespace AIResumeAnalyzer.Infrastructure.Services.AIService.Prompts
             string jobDescription)
         {
             return $$"""
-            You are an ATS Matching Engine.
+            You are an ATS Matching Expert.
 
-            Compare the resume and job description.
+            Compare Resume and Job Description.
 
             Return ONLY valid JSON.
 
             {
     
-                  "matchScore": 0,
-              "missingKeywords": ""
+                "matchScore": 0,
+                "matchedKeywords": "",
+                "missingKeywords": "",
+                "suggestions": ""
             }
 
             Rules:
-            - matchScore must be between 0 and 100.
-            - missingKeywords should contain missing skills separated by commas.
+            - Match score must be 0-100.
+            - MatchedKeywords = skills found in both resume and JD.
+            - MissingKeywords = skills required by JD but missing in resume.
+            - Suggestions = specific improvements to increase matching score.
 
             Resume:
             {resume}

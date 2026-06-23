@@ -47,6 +47,10 @@ namespace AIResumeAnalyzer.Application.Features.JobMatching.Commands.Queries.Get
 
                 MissingKeywords = match.MissingKeywords,
 
+                MatchedKeywords = match.MatchedKeywords,
+
+                Suggestions = match.Suggestions,
+
                 JobTitle = match.JobDescription.Title,
 
                 CompanyName = match.JobDescription.CompanyName,

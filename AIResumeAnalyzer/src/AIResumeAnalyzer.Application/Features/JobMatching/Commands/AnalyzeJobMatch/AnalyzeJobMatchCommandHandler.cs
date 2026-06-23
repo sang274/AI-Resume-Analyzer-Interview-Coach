@@ -67,15 +67,19 @@ namespace AIResumeAnalyzer.Application.Features.JobMatching.Commands.AnalyzeJobM
                         cancellationToken);
 
             var jobMatch = new JobMatch
-                {
-                    ResumeId = resume.Id,
+            {
+                ResumeId = resume.Id,
 
-                    JobDescriptionId = jobDescription.Id,
+                JobDescriptionId = jobDescription.Id,
 
-                    MatchScore = result.MatchScore,
+                MatchScore = result.MatchScore,
 
-                    MissingKeywords = result.MissingKeywords
-                };
+                MatchedKeywords = result.MatchedKeywords,
+
+                MissingKeywords = result.MissingKeywords,
+
+                Suggestions = result.Suggestions
+            };
 
             await _jobMatchRepository.AddAsync(jobMatch);
 
