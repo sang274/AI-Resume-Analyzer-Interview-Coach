@@ -39,6 +39,8 @@ namespace AIResumeAnalyzer.Infrastructure
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+            services.AddScoped<IJobMatchRepository, JobMatchRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
