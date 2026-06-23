@@ -11,5 +11,9 @@ namespace AIResumeAnalyzer.Application.Features.JobMatching.DTO
         public double MatchScore { get; set; }
 
         public string MissingKeywords { get; set; }  = string.Empty;
+
+        public string MatchedKeywords { get; set; }
+
+        public string Suggestions { get; set; }
     }
 }

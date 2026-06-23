@@ -17,6 +17,10 @@ namespace AIResumeAnalyzer.Domain.Entities
 
         public string MissingKeywords { get; set; } = null!;
 
+        public string MatchedKeywords { get; set; }
+
+        public string Suggestions { get; set; }
+
         public Resume Resume { get; set; } = null!;
 
         public JobDescription JobDescription { get; set; } = null!;
