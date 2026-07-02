@@ -3,6 +3,7 @@ using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
 using AIResumeAnalyzer.Application.Interfaces.IAIService;
 using AIResumeAnalyzer.Application.Interfaces.IAuthenticateService;
 using AIResumeAnalyzer.Application.Interfaces.IFileService;
+using AIResumeAnalyzer.Application.Interfaces.IInterviewService;
 using AIResumeAnalyzer.Application.Interfaces.IJobService;
 using AIResumeAnalyzer.Application.Interfaces.IRepository;
 using AIResumeAnalyzer.Application.Interfaces.Persistence;
@@ -36,6 +37,8 @@ namespace AIResumeAnalyzer.Infrastructure
             services.AddHttpClient<IAIResumeAnalyzerService, AIResumeAnalyzerService>();
 
             services.AddHttpClient<IJobMatchingService, AIJobMatchingService>();
+
+            services.AddHttpClient<IInterviewCoachService, AIInterviewCoachService>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
