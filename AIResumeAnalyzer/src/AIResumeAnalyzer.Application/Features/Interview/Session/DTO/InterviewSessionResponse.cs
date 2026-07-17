@@ -22,8 +22,6 @@ namespace AIResumeAnalyzer.Application.Features.Interview.Session.DTO
 
         public DateTime? FinishedAt { get; set; }
 
-        public List<InterviewQuestionResponse> Questions
-        { get; set; }
-            = [];
+        public List<InterviewQuestionResponse> Questions { get; set; } = [];
     }
 }

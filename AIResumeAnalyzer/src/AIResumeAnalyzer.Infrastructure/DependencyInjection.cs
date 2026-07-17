@@ -34,17 +34,21 @@ namespace AIResumeAnalyzer.Infrastructure
 
             services.Configure<GeminiSettings>(configuration.GetSection("Gemini"));
 
-            services.AddHttpClient<IAIResumeAnalyzerService, AIResumeAnalyzerService>();
+            services.AddScoped<IAIResumeAnalyzerService, AIResumeAnalyzerService>();
 
-            services.AddHttpClient<IJobMatchingService, AIJobMatchingService>();
+            services.AddScoped<IJobMatchingService, AIJobMatchingService>();
 
-            services.AddHttpClient<IInterviewCoachService, AIInterviewCoachService>();
+            services.AddScoped<IInterviewCoachService, AIInterviewCoachService>();
+
+            services.AddHttpClient<IGeminiClient, GeminiClient>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<IJobMatchRepository, JobMatchRepository>();
 
             services.AddScoped<IInterviewSessionRepository, InterviewSessionRepository>();
+
+            services.AddScoped<IInterviewQuestionRepository, InterviewQuestionRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

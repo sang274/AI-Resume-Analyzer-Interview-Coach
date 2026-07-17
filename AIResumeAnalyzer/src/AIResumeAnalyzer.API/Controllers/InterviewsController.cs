@@ -1,4 +1,6 @@
-﻿using AIResumeAnalyzer.Application.Features.Interview.Question.Commands.Create;
+﻿using AIResumeAnalyzer.Application.Features.Interview.Answer.Command;
+using AIResumeAnalyzer.Application.Features.Interview.Answer.DTO;
+using AIResumeAnalyzer.Application.Features.Interview.Question.Commands.Create;
 using AIResumeAnalyzer.Application.Features.Interview.Session.Commands.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +38,17 @@ namespace AIResumeAnalyzer.API.Controllers
         public async Task<IActionResult> GetSessionById(Guid sessionId)
         {
             var result = await _mediator.Send(new GetInterviewSessionQuery(sessionId));
+
+            return Ok(result);
+        }
+
+        [HttpPost("questions/{questionId}/answer")]
+        public async Task<IActionResult> SubmitAnswer(Guid questionId, [FromBody] SubmitInterviewAnswerRequest request)
+        {
+            var result = await _mediator.Send(
+                new SubmitInterviewAnswerCommand(
+                    questionId,
+                    request.Answer));
 
             return Ok(result);
         }
