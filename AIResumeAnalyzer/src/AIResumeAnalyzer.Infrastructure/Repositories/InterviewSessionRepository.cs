@@ -55,5 +55,33 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
                          x.UserId == userId,
                     cancellationToken);
         }
+
+        public async Task<int> GetCountAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.InterviewSessions.CountAsync(x => x.UserId == userId, cancellationToken);
+        }
+
+        public async Task<int> GetCompletedCountAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.InterviewSessions.CountAsync(x => x.UserId == userId && x.IsCompleted, cancellationToken);
+        }
+
+        public async Task<double> GetAverageScoreAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            var average = await _context.InterviewSessions
+                .Where(x => x.UserId == userId && x.IsCompleted)
+                .AverageAsync(x => (double?)x.Score, cancellationToken);
+
+            return average ?? 0;
+        }
+
+        public async Task<double> GetBestScoreAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            var bestScore = await _context.InterviewSessions
+                .Where(x => x.UserId == userId && x.IsCompleted)
+                .MaxAsync(x => (double?)x.Score, cancellationToken);
+
+            return bestScore ?? 0;
+        }
     }
 }

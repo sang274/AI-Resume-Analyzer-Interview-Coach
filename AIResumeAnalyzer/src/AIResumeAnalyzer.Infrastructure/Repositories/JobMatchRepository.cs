@@ -28,5 +28,30 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
                 .Include(x => x.Resume)
                 .FirstOrDefaultAsync(x => x.Id == jobMatchId && x.Resume.UserId == userId, cancellationToken);
         }
+
+        public async Task<int> GetCountAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.JobMatches
+                .Where(x => x.Resume.UserId == userId)
+                .CountAsync(cancellationToken);
+        }
+
+        public async Task<double> GetAverageScoreAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            var average = await _context.JobMatches
+                .Where(x => x.Resume.UserId == userId)
+                .AverageAsync(x => (double?)x.MatchScore, cancellationToken);
+
+            return average ?? 0;
+        }
+
+        public async Task<double> GetBestScoreAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            var bestScore = await _context.JobMatches
+                .Where(x => x.Resume.UserId == userId)
+                .MaxAsync(x => (double?)x.MatchScore, cancellationToken);
+
+            return bestScore ?? 0;
+        }
     }
 }

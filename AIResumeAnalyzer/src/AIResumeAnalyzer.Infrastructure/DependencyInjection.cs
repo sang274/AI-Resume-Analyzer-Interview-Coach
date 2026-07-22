@@ -50,6 +50,8 @@ namespace AIResumeAnalyzer.Infrastructure
 
             services.AddScoped<IInterviewQuestionRepository, InterviewQuestionRepository>();
 
+            services.AddScoped<IResumeRepository, ResumeRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));

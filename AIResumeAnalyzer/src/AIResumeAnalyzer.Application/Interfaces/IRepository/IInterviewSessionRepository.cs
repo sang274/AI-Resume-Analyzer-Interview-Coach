@@ -16,5 +16,13 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
         Task<InterviewSession?> GetForFinishAsync(Guid sessionId,Guid userId,CancellationToken cancellationToken);
 
         void Update(InterviewSession session);
+
+        Task<int> GetCountAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<int> GetCompletedCountAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<double> GetAverageScoreAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<double> GetBestScoreAsync(Guid userId, CancellationToken cancellationToken);
     }
 }

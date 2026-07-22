@@ -10,5 +10,11 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
     public interface IJobMatchRepository
     {
         Task<JobMatch?> GetDetailByIdAsync(Guid jobMatchId, Guid userId, CancellationToken cancellationToken);
+
+        Task<int> GetCountAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<double> GetAverageScoreAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<double> GetBestScoreAsync(Guid userId, CancellationToken cancellationToken);
     }
 }
