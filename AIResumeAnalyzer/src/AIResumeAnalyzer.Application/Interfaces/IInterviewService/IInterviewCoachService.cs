@@ -1,5 +1,6 @@
 ﻿using AIResumeAnalyzer.Application.Features.AI.DTO;
 using AIResumeAnalyzer.Application.Features.Interview.Question.DTO;
+using AIResumeAnalyzer.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace AIResumeAnalyzer.Application.Interfaces.IInterviewService
         Task<InterviewQuestionGenerationResult>GenerateQuestionsAsync(string resumeText, string jobDescriptionText, CancellationToken cancellationToken);
 
         Task<InterviewEvaluationResult>EvaluateAnswerAsync(string question, string answer, CancellationToken cancellationToken);
+
+        Task<InterviewSummaryResult> SummarizeInterviewAsync(IEnumerable<InterviewQuestion> questions, CancellationToken cancellationToken);
     }
 }

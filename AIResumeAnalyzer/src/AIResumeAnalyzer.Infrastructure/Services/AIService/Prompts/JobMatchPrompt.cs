@@ -8,9 +8,7 @@ namespace AIResumeAnalyzer.Infrastructure.Services.AIService.Prompts
 {
     public static class JobMatchPrompt
     {
-        public static string Build(
-            string resume,
-            string jobDescription)
+        public static string Build(string resume, string jobDescription)
         {
             return $$"""
             You are an ATS Matching Expert.

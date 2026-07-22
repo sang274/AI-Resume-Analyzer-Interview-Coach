@@ -2,6 +2,7 @@
 using AIResumeAnalyzer.Application.Features.AI.DTO;
 using AIResumeAnalyzer.Application.Features.Interview.Question.DTO;
 using AIResumeAnalyzer.Application.Interfaces.IInterviewService;
+using AIResumeAnalyzer.Domain.Entities;
 using AIResumeAnalyzer.Infrastructure.Services.AIService.Prompts;
 using Microsoft.Extensions.Options;
 using System.Text;
@@ -32,6 +33,13 @@ namespace AIResumeAnalyzer.Infrastructure.Services.AIService
             var prompt = InterviewEvaluationPrompt.Build(question, answer);
 
             return await _aiClient.SendPromptAsync<InterviewEvaluationResult>(prompt, cancellationToken);
+        }
+
+        public async Task<InterviewSummaryResult> SummarizeInterviewAsync(IEnumerable<InterviewQuestion> questions, CancellationToken cancellationToken)
+        {
+            var prompt = InterviewSummaryPrompt.Build(questions);
+
+            return await _aiClient.SendPromptAsync<InterviewSummaryResult>(prompt, cancellationToken);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using AIResumeAnalyzer.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AIResumeAnalyzer.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260717081231_UpdateInterviewSessionSummary")]
+    partial class UpdateInterviewSessionSummary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,9 +93,6 @@ namespace AIResumeAnalyzer.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid?>("JobDescriptionId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("OverallFeedback")
                         .HasColumnType("text");
 
@@ -124,8 +124,6 @@ namespace AIResumeAnalyzer.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JobDescriptionId");
 
                     b.HasIndex("ResumeId");
 
@@ -425,10 +423,6 @@ namespace AIResumeAnalyzer.Infrastructure.Migrations
 
             modelBuilder.Entity("AIResumeAnalyzer.Domain.Entities.InterviewSession", b =>
                 {
-                    b.HasOne("AIResumeAnalyzer.Domain.Entities.JobDescription", "JobDescription")
-                        .WithMany()
-                        .HasForeignKey("JobDescriptionId");
-
                     b.HasOne("AIResumeAnalyzer.Domain.Entities.Resume", "Resume")
                         .WithMany()
                         .HasForeignKey("ResumeId")
@@ -440,8 +434,6 @@ namespace AIResumeAnalyzer.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("JobDescription");
 
                     b.Navigation("Resume");
 

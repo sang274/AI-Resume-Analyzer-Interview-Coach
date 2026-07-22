@@ -72,11 +72,7 @@ namespace AIResumeAnalyzer.Application.Features.Interview.Question.Commands.Crea
                 throw new NotFoundException("Job description not found.");
             }
 
-            var aiResult =
-                await _interviewCoachService.GenerateQuestionsAsync(
-                        resume.ParsedText,
-                        jobDescription.Content,
-                        cancellationToken);
+            var aiResult = await _interviewCoachService.GenerateQuestionsAsync(resume.ParsedText, jobDescription.Content, cancellationToken);
 
             if (aiResult.Questions.Count == 0)
             {
@@ -89,12 +85,16 @@ namespace AIResumeAnalyzer.Application.Features.Interview.Question.Commands.Crea
 
                     ResumeId = resume.Id,
 
+                    JobDescriptionId = jobDescription.Id,
+
                     Type = InterviewType.Technical,
 
                     Score = 0,
 
-                    StartedAt = DateTime.UtcNow
-                };
+                    StartedAt = DateTime.UtcNow,
+
+                    IsCompleted = false
+            };
 
             await _interviewSessionRepository.AddAsync(session);
 

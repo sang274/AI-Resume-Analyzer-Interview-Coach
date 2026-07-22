@@ -19,17 +19,41 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<InterviewSession?> GetDetailAsync(
-            Guid sessionId,
-            Guid userId,
-            CancellationToken cancellationToken)
+        public async Task<List<InterviewSession>> GetMySessionsAsync(Guid userId, CancellationToken cancellationToken)
         {
             return await _context.InterviewSessions
                 .AsNoTracking()
+                .Include(x => x.JobDescription)
+                .Include(x => x.Questions)
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<InterviewSession?> GetDetailAsync(Guid sessionId, Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.InterviewSessions
+                .AsNoTracking()
+                .Include(x => x.JobDescription)
                 .Include(x => x.Questions)
                 .FirstOrDefaultAsync(x => x.Id == sessionId
                                     && x.UserId == userId,
                                     cancellationToken);
+        }
+
+        public void Update(InterviewSession session)
+        {
+            _context.InterviewSessions.Update(session);
+        }
+
+        public async Task<InterviewSession?> GetForFinishAsync(Guid sessionId, Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.InterviewSessions
+                .Include(x => x.Questions)
+                .FirstOrDefaultAsync(
+                    x => x.Id == sessionId &&
+                         x.UserId == userId,
+                    cancellationToken);
         }
     }
 }

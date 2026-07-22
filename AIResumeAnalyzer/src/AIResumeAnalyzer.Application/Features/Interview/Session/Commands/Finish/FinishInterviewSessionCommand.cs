@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeAnalyzer.Application.Features.Interview.Session.Commands.Queries
+namespace AIResumeAnalyzer.Application.Features.Interview.Session.Commands.Finish
 {
-    public record GetInterviewSessionQuery(Guid SessionId) : IRequest<InterviewSessionResponse>;
+    public record FinishInterviewSessionCommand(Guid SessionId) : IRequest<InterviewSummaryResponse>;
 }

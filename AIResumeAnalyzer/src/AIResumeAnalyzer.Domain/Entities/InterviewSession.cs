@@ -14,6 +14,8 @@ namespace AIResumeAnalyzer.Domain.Entities
 
         public Guid ResumeId { get; set; }
 
+        public Guid? JobDescriptionId { get; set; }
+
         public InterviewType Type { get; set; }
 
         public double Score { get; set; }
@@ -22,11 +24,22 @@ namespace AIResumeAnalyzer.Domain.Entities
 
         public DateTime? FinishedAt { get; set; }
 
+        public string? OverallFeedback { get; set; }
+
+        public string? Strengths { get; set; }
+
+        public string? Weaknesses { get; set; }
+
+        public string? ImprovementSuggestions { get; set; }
+
+        public bool IsCompleted { get; set; }
+
         public User User { get; set; } = null!;
 
         public Resume Resume { get; set; } = null!;
 
-        public ICollection<InterviewQuestion> Questions { get; set; }
-            = new List<InterviewQuestion>();
+        public JobDescription? JobDescription { get; set; } = null!;
+
+        public ICollection<InterviewQuestion> Questions { get; set; } = new List<InterviewQuestion>();
     }
 }

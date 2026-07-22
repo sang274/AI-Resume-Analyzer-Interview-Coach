@@ -16,14 +16,10 @@ namespace AIResumeAnalyzer.Application.Features.JobDescriptions.Commands.Queries
     {
         private readonly IGenericRepository<JobDescription> _jobDescriptionRepository;
 
-        private readonly ICurrentUserService _currentUserService;
-
         public GetListJobDescriptionsQueryHandler(
-            IGenericRepository<JobDescription> jobDescriptionRepository,
-            ICurrentUserService currentUserService)
+            IGenericRepository<JobDescription> jobDescriptionRepository)
         {
             _jobDescriptionRepository = jobDescriptionRepository;
-            _currentUserService = currentUserService;
         }
 
         public async Task<List<JobDescriptionResponse>> Handle(GetListJobDescriptionsQuery request, CancellationToken cancellationToken)

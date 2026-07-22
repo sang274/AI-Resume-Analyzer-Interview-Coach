@@ -14,6 +14,8 @@ namespace AIResumeAnalyzer.Application.Features.Interview.Session.DTO
 
         public Guid ResumeId { get; set; }
 
+        public Guid? JobDescriptionId { get; set; }
+
         public InterviewType Type { get; set; }
 
         public double Score { get; set; }
@@ -23,5 +25,14 @@ namespace AIResumeAnalyzer.Application.Features.Interview.Session.DTO
         public DateTime? FinishedAt { get; set; }
 
         public List<InterviewQuestionResponse> Questions { get; set; } = [];
+        public string? OverallFeedback { get; set; }
+
+        public string? Strengths { get; set; }
+
+        public string? Weaknesses { get; set; }
+
+        public string? ImprovementSuggestions { get; set; }
+
+        public bool IsCompleted { get; set; }
     }
 }

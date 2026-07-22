@@ -8,9 +8,7 @@ namespace AIResumeAnalyzer.Infrastructure.Services.AIService.Prompts
 {
     public static class InterviewEvaluationPrompt
     {
-        public static string Build(
-            string question,
-            string answer)
+        public static string Build(string question, string answer)
         {
             return $$"""
                 You are a Senior Software Engineer interviewing a candidate.

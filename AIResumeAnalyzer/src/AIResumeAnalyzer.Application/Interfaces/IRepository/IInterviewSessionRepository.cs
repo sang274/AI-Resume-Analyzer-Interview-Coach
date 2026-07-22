@@ -9,9 +9,12 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
 {
     public interface IInterviewSessionRepository
     {
-        Task<InterviewSession?> GetDetailAsync(
-            Guid sessionId,
-            Guid userId,
-            CancellationToken cancellationToken);
+        Task<List<InterviewSession>>GetMySessionsAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<InterviewSession?> GetDetailAsync(Guid sessionId, Guid userId, CancellationToken cancellationToken);
+
+        Task<InterviewSession?> GetForFinishAsync(Guid sessionId,Guid userId,CancellationToken cancellationToken);
+
+        void Update(InterviewSession session);
     }
 }
