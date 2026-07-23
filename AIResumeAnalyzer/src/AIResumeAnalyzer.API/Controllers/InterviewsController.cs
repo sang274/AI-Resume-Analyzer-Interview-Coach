@@ -2,8 +2,10 @@
 using AIResumeAnalyzer.Application.Features.Interview.Answer.DTO;
 using AIResumeAnalyzer.Application.Features.Interview.Question.Commands.Create;
 using AIResumeAnalyzer.Application.Features.Interview.Session.Commands.Finish;
+using AIResumeAnalyzer.Application.Features.Interview.Session.Commands.Queries.GetInterviewHistory;
 using AIResumeAnalyzer.Application.Features.Interview.Session.Commands.Queries.GetInterviewSessionById;
 using AIResumeAnalyzer.Application.Features.Interview.Session.Commands.Queries.GetInterviewSessions;
+using AIResumeAnalyzer.Application.Features.Interview.Session.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +38,15 @@ namespace AIResumeAnalyzer.API.Controllers
             });
         }
 
-        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetHistory([FromQuery] InterviewFilterParams filter)
+        {
+            var result = await _mediator.Send(
+                new GetInterviewHistoryQuery(filter));
+
+            return Ok(result);
+        }
+
         [HttpGet("my")]
         public async Task<IActionResult> GetMySessions()
         {

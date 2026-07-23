@@ -1,4 +1,6 @@
-﻿using AIResumeAnalyzer.Domain.Entities;
+﻿using AIResumeAnalyzer.Application.Common.Pagination;
+using AIResumeAnalyzer.Application.Features.Interview.Session.DTO;
+using AIResumeAnalyzer.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +30,7 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
         Task<List<InterviewSession>> GetRecentAsync(Guid userId, int take, CancellationToken cancellationToken);
 
         Task<List<InterviewSession>>GetAllAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<PagedResult<InterviewHistoryItemResponse>> GetHistoryAsync(Guid userId, InterviewFilterParams filter, CancellationToken cancellationToken);
     }
 }
