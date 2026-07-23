@@ -57,7 +57,24 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
 
         public void Delete(T entity)
         {
-            _dbSet.Remove(entity);
+            entity.IsDeleted = true;
+            entity.DeletedAt = DateTime.UtcNow;
+
+            _dbSet.Update(entity);
+        }
+
+        public async Task<T?> GetDeletedByIdAsync(Guid id)
+        {
+            return await _dbSet.IgnoreQueryFilters().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public void Restore(T entity)
+        {
+            entity.IsDeleted = false;
+            entity.DeletedAt = null;
+            entity.DeletedBy = null;
+
+            _dbSet.Update(entity);
         }
     }
 }
