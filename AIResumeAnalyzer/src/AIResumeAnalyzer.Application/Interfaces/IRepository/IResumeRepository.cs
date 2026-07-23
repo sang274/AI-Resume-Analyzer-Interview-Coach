@@ -16,5 +16,7 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
         Task<double> GetBestATSScoreAsync(Guid userId, CancellationToken cancellationToken);
 
         Task<List<Resume>>GetRecentAsync(Guid userId, int take, CancellationToken cancellationToken);
+
+        Task<List<Resume>>GetAllAsync(Guid userId, CancellationToken cancellationToken);
     }
 }

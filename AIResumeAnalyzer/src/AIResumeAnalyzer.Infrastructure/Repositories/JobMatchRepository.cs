@@ -64,5 +64,16 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
                 .Take(take)
                 .ToListAsync(cancellationToken);
         }
+
+        public async Task<List<JobMatch>> GetAllAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.JobMatches
+                .Include(x => x.JobDescription)
+                .Include(x => x.Resume)
+                .Where(x => x.Resume.UserId == userId)
+                .OrderByDescending(x => x.CreatedAt)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+        }
     }
 }

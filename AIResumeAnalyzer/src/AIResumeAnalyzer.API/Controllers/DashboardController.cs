@@ -1,4 +1,5 @@
 using AIResumeAnalyzer.Application.Features.Dashboard.Commands.Queries.GetDashboard;
+using AIResumeAnalyzer.Application.Features.Dashboard.Commands.Queries.GetDashboardCharts;
 using AIResumeAnalyzer.Application.Features.Dashboard.Commands.Queries.GetRecentActivities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -31,5 +32,11 @@ public class DashboardController : ControllerBase
     [FromQuery] int take = 10)
     {
         return Ok(await _mediator.Send(new GetRecentActivitiesQuery(take)));
+    }
+
+    [HttpGet("charts")]
+    public async Task<IActionResult> Charts()
+    {
+        return Ok(await _mediator.Send(new GetDashboardChartsQuery()));
     }
 }

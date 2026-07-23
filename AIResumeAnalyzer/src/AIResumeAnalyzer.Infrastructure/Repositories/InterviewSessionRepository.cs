@@ -93,5 +93,15 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
                 .Take(take)
                 .ToListAsync(cancellationToken);
         }
+
+        public async Task<List<InterviewSession>> GetAllAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.InterviewSessions
+                .Include(x => x.JobDescription)
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.CreatedAt)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+        }
     }
 }
