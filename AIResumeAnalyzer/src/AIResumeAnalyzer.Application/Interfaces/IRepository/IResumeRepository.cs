@@ -22,5 +22,9 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
         Task<List<Resume>>GetAllAsync(Guid userId, CancellationToken cancellationToken);
 
         Task<PagedResult<ResumeHistoryItemResponse>> GetHistoryAsync(Guid userId, ResumeFilterParams filter, CancellationToken cancellationToken);
+
+        Task<Resume?> GetByIdAsync(Guid resumeId, Guid userId, CancellationToken cancellationToken);
+
+        Task<Resume?> GetDeletedAsync(Guid id, Guid userId, CancellationToken cancellationToken);
     }
 }

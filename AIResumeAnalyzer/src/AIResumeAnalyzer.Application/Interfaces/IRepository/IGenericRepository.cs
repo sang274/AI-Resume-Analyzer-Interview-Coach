@@ -23,5 +23,7 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
         void Update(T entity);
 
         void Delete(T entity);
+
+        void Restore(T entity);
     }
 }

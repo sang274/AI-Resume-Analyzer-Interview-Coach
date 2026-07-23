@@ -25,13 +25,13 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
 
         public async Task<int> GetCountAsync(Guid userId, CancellationToken cancellationToken)
         {
-            return await _context.Resumes.CountAsync(x => x.UserId == userId, cancellationToken);
+            return await _context.Resumes.Where(x => !x.IsDeleted).CountAsync(x => x.UserId == userId, cancellationToken);
         }
 
         public async Task<double> GetAverageATSScoreAsync(Guid userId, CancellationToken cancellationToken)
         {
             var average = await _context.Resumes
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId && !x.IsDeleted)
                 .AverageAsync(x => (double?)x.ATSScore, cancellationToken);
 
             return average ?? 0;
@@ -40,7 +40,7 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
         public async Task<double> GetBestATSScoreAsync(Guid userId, CancellationToken cancellationToken)
         {
             var bestScore = await _context.Resumes
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId && !x.IsDeleted)
                 .MaxAsync(x => (double?)x.ATSScore, cancellationToken);
 
             return bestScore ?? 0;
@@ -49,7 +49,7 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
         public async Task<List<Resume>> GetRecentAsync(Guid userId, int take, CancellationToken cancellationToken)
         {
             return await _context.Resumes
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId && !x.IsDeleted)
                 .OrderByDescending(x => x.CreatedAt)
                 .Take(take)
                 .ToListAsync(cancellationToken);
@@ -58,7 +58,7 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
         public async Task<List<Resume>> GetAllAsync(Guid userId, CancellationToken cancellationToken)
         {
             return await _context.Resumes
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId && !x.IsDeleted)
                 .OrderByDescending(x => x.CreatedAt)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
@@ -124,5 +124,24 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
             ["status"] = x => x.Status,
             ["createdat"] = x => x.CreatedAt
         };
+
+        public async Task<Resume?> GetByIdAsync(Guid resumeId, Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.Resumes.FirstOrDefaultAsync(x =>
+                    x.Id == resumeId &&
+                    x.UserId == userId,
+                    cancellationToken);
+        }
+
+        public async Task<Resume?> GetDeletedAsync(Guid id, Guid userId, CancellationToken cancellationToken)
+        {
+            return await _context.Resumes
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(x =>
+                    x.Id == id &&
+                    x.UserId == userId &&
+                    x.IsDeleted,
+                    cancellationToken);
+        }
     }
 }

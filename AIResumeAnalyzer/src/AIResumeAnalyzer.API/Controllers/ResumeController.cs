@@ -1,8 +1,10 @@
 ﻿using AIResumeAnalyzer.Application.Features.AI.Commands.AnalyzeResume;
+using AIResumeAnalyzer.Application.Features.Resumes.Commands.Delete;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.ParseResume;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetListMyResumes;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetResumeById;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetResumeHistory;
+using AIResumeAnalyzer.Application.Features.Resumes.Commands.Restore;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.UploadResume;
 using AIResumeAnalyzer.Application.Features.Resumes.DTOs;
 using MediatR;
@@ -75,6 +77,26 @@ namespace AIResumeAnalyzer.API.Controllers
             return Ok(new
             {
                 Message = "Resume analyzed successfully."
+            });
+        }
+
+        [HttpDelete("{resumeId}")]
+        public async Task<IActionResult> Delete(Guid resumeId)
+        {
+            await _mediator.Send(new DeleteResumeCommand(resumeId));
+
+            return NoContent();
+        }
+
+        [HttpPost("{resumeId}/restore")]
+        public async Task<IActionResult> Restore(Guid resumeId)
+        {
+            await _mediator.Send(
+                new RestoreResumeCommand(resumeId));
+
+            return Ok(new
+            {
+                Message = "Resume restored successfully."
             });
         }
     }
