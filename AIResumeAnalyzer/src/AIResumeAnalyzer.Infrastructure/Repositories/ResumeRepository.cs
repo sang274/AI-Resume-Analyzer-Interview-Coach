@@ -1,4 +1,5 @@
 ﻿using AIResumeAnalyzer.Application.Interfaces.IRepository;
+using AIResumeAnalyzer.Domain.Entities;
 using AIResumeAnalyzer.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -39,6 +40,15 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
                 .MaxAsync(x => (double?)x.ATSScore, cancellationToken);
 
             return bestScore ?? 0;
+        }
+
+        public async Task<List<Resume>> GetRecentAsync(Guid userId, int take, CancellationToken cancellationToken)
+        {
+            return await _context.Resumes
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.CreatedAt)
+                .Take(take)
+                .ToListAsync(cancellationToken);
         }
     }
 }

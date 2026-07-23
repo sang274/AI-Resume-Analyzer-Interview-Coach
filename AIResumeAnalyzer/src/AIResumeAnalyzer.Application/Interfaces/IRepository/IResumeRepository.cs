@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AIResumeAnalyzer.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
         Task<double> GetAverageATSScoreAsync(Guid userId, CancellationToken cancellationToken);
 
         Task<double> GetBestATSScoreAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<List<Resume>>GetRecentAsync(Guid userId, int take, CancellationToken cancellationToken);
     }
 }

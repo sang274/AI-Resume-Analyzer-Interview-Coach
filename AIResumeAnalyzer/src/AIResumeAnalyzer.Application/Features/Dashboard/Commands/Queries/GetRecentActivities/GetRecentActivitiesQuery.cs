@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeAnalyzer.Application.Features.Dashboard.Commands.Queries
+namespace AIResumeAnalyzer.Application.Features.Dashboard.Commands.Queries.GetRecentActivities
 {
-    public record GetDashboardQuery : IRequest<DashboardResponse>;
+    public record GetRecentActivitiesQuery(int Take = 10) : IRequest<List<RecentActivityResponse>>;
 }

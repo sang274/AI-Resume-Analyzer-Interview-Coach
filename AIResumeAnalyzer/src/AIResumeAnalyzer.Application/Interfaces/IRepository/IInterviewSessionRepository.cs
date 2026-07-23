@@ -24,5 +24,7 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
         Task<double> GetAverageScoreAsync(Guid userId, CancellationToken cancellationToken);
 
         Task<double> GetBestScoreAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<List<InterviewSession>> GetRecentAsync(Guid userId, int take, CancellationToken cancellationToken);
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeAnalyzer.Application.Features.Dashboard.Commands.Queries
+namespace AIResumeAnalyzer.Application.Features.Dashboard.Commands.Queries.GetDashboard
 {
     public class GetDashboardQueryHandler : IRequestHandler<GetDashboardQuery, DashboardResponse>
     {

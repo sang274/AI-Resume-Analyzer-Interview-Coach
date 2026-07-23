@@ -53,5 +53,16 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
 
             return bestScore ?? 0;
         }
+
+        public async Task<List<JobMatch>> GetRecentAsync(Guid userId, int take, CancellationToken cancellationToken)
+        {
+            return await _context.JobMatches
+                .Include(x => x.JobDescription)
+                .Include(x => x.Resume)
+                .Where(x => x.Resume.UserId == userId)
+                .OrderByDescending(x => x.CreatedAt)
+                .Take(take)
+                .ToListAsync(cancellationToken);
+        }
     }
 }
