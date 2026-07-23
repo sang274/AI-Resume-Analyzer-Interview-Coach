@@ -1,13 +1,12 @@
 using AIResumeAnalyzer.API.Extensions;
 using AIResumeAnalyzer.Application.Common.Settings;
 using AIResumeAnalyzer.Infrastructure;
-using AIResumeAnalyzer.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
+using Serilog;
 using System.Text;
+using Serilog.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +14,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext()
+        .Enrich.WithMachineName()
+        .Enrich.WithThreadId()
+        .Enrich.WithExceptionDetails();
+});
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -88,6 +98,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseSerilogRequestLogging(options =>
+{
+    options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
+});
 
 app.UseStaticFiles();
 

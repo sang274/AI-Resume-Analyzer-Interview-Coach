@@ -5,11 +5,9 @@ namespace AIResumeAnalyzer.API.Extensions
     public static class MiddlewareExtensions
     {
         public static IApplicationBuilder
-            UseGlobalExceptionMiddleware(
-                this IApplicationBuilder app)
+            UseGlobalExceptionMiddleware(this IApplicationBuilder app)
         {
-            return app.UseMiddleware<
-                GlobalExceptionMiddleware>();
+            return app.UseMiddleware<GlobalExceptionMiddleware>();
         }
     }
 }

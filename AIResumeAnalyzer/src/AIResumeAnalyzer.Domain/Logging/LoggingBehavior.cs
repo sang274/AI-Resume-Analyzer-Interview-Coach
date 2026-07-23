@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeAnalyzer.Application.Mappings
+namespace AIResumeAnalyzer.Domain.Logging
 {
-    internal class AutoMapperProfile
+    internal class LoggingBehavior
     {
     }
 }
