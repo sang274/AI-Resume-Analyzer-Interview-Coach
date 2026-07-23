@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace AIResumeAnalyzer.Application.Common.Filtering
 {
-    internal class SortDirection
+    public enum SortDirection
     {
+        Asc = 1,
+
+        Desc = 2
     }
 }

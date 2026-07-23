@@ -2,7 +2,9 @@
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.ParseResume;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetListMyResumes;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetResumeById;
+using AIResumeAnalyzer.Application.Features.Resumes.Commands.Queries.GetResumeHistory;
 using AIResumeAnalyzer.Application.Features.Resumes.Commands.UploadResume;
+using AIResumeAnalyzer.Application.Features.Resumes.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +32,14 @@ namespace AIResumeAnalyzer.API.Controllers
             {
                 ResumeId = resumeId
             });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetHistory([FromQuery] ResumeFilterParams filter)
+        {
+            var result = await _mediator.Send(new GetResumeHistoryQuery(filter));
+
+            return Ok(result);
         }
 
         [HttpGet("my")]
