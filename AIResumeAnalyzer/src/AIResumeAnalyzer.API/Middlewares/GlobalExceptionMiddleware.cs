@@ -94,8 +94,7 @@ namespace AIResumeAnalyzer.API.Middlewares
             context.Response.StatusCode =
                 response.StatusCode;
 
-            await context.Response.WriteAsync(
-                JsonSerializer.Serialize(response));
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
     }
 }

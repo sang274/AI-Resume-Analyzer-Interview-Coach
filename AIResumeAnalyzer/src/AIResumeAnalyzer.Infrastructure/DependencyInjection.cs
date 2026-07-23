@@ -1,4 +1,5 @@
-﻿using AIResumeAnalyzer.Application.Common.Settings;
+﻿using AIResumeAnalyzer.Application.Common.Logging;
+using AIResumeAnalyzer.Application.Common.Settings;
 using AIResumeAnalyzer.Application.Features.Auth.Commands.Register;
 using AIResumeAnalyzer.Application.Interfaces.IAIService;
 using AIResumeAnalyzer.Application.Interfaces.IAuthenticateService;
@@ -13,6 +14,7 @@ using AIResumeAnalyzer.Infrastructure.Services.AIService;
 using AIResumeAnalyzer.Infrastructure.Services.AuthenticateService;
 using AIResumeAnalyzer.Infrastructure.Services.FileService;
 using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -72,12 +74,12 @@ namespace AIResumeAnalyzer.Infrastructure
         public static IServiceCollection AddApplication(
             this IServiceCollection services)
         {
-            services.AddMediatR(cfg =>
-                cfg.RegisterServicesFromAssembly(
-                    Assembly.GetExecutingAssembly()));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             services.AddValidatorsFromAssembly(typeof(RegisterCommand).Assembly);
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterCommand).Assembly));
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
             return services;
         }
