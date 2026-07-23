@@ -36,6 +36,11 @@ namespace AIResumeAnalyzer.Infrastructure
 
             services.Configure<GeminiSettings>(configuration.GetSection("Gemini"));
 
+            services.AddHealthChecks().AddNpgSql(
+                configuration.GetConnectionString("DefaultConnection")!,
+                name: "PostgreSQL",
+                tags: new[] { "db", "ready" });
+
             services.AddScoped<IAIResumeAnalyzerService, AIResumeAnalyzerService>();
 
             services.AddScoped<IJobMatchingService, AIJobMatchingService>();

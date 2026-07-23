@@ -16,6 +16,11 @@ namespace AIResumeAnalyzer.Application.Common.Logging
 
             foreach (var property in request.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
+                if (property.GetIndexParameters().Length > 0)
+                {
+                    continue;
+                }
+
                 var name = property.Name;
 
                 if (LoggingConstants.SensitiveFields.Contains(name))
