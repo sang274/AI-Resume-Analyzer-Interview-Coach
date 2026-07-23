@@ -1,10 +1,14 @@
-﻿using AIResumeAnalyzer.Application.Interfaces.IRepository;
+﻿using AIResumeAnalyzer.Application.Common.Extensions;
+using AIResumeAnalyzer.Application.Common.Pagination;
+using AIResumeAnalyzer.Application.Features.JobMatching.DTO;
+using AIResumeAnalyzer.Application.Interfaces.IRepository;
 using AIResumeAnalyzer.Domain.Entities;
 using AIResumeAnalyzer.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,5 +79,85 @@ namespace AIResumeAnalyzer.Infrastructure.Repositories
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
+
+        public async Task<PagedResult<JobMatchHistoryItemResponse>> GetHistoryAsync(Guid userId, JobMatchFilterParams filter, CancellationToken cancellationToken)
+        {
+            IQueryable<JobMatch> query = _context.JobMatches
+                .AsNoTracking()
+                .Include(x => x.JobDescription)
+                .Include(x => x.Resume)
+                .Where(x => x.Resume.UserId == userId);
+
+            // Keyword
+            if (!string.IsNullOrWhiteSpace(filter.Keyword))
+            {
+                var keyword = filter.Keyword.Trim().ToLower();
+
+                query = query.Where(x => x.JobDescription.Title.ToLower().Contains(keyword) || x.JobDescription.CompanyName.ToLower().Contains(keyword));
+            }
+
+            // Company
+            if (!string.IsNullOrWhiteSpace(filter.CompanyName))
+            {
+                var company = filter.CompanyName.Trim().ToLower();
+
+                query = query.Where(x => x.JobDescription.CompanyName.ToLower().Contains(company));
+            }
+
+            // Job Title
+            if (!string.IsNullOrWhiteSpace(filter.JobTitle))
+            {
+                var title = filter.JobTitle.Trim().ToLower();
+
+                query = query.Where(x => x.JobDescription.Title.ToLower().Contains(title));
+            }
+
+            // Match Score
+            if (filter.MinMatchScore.HasValue)
+            {
+                query = query.Where(x => x.MatchScore >= filter.MinMatchScore.Value);
+            }
+
+            if (filter.MaxMatchScore.HasValue)
+            {
+                query = query.Where(x => x.MatchScore <= filter.MaxMatchScore.Value);
+            }
+
+            // Sorting
+            query = query.ApplySorting(filter.Sort, SortColumns, x => x.CreatedAt);
+
+            // Projection
+            var projected = query.Select(x => new JobMatchHistoryItemResponse
+            {
+                JobMatchId = x.Id,
+
+                ResumeId = x.ResumeId,
+
+                JobDescriptionId = x.JobDescriptionId,
+
+                CompanyName = x.JobDescription.CompanyName,
+
+                JobTitle = x.JobDescription.Title,
+
+                MatchScore = x.MatchScore,
+
+                CreatedAt = x.CreatedAt
+            });
+
+            return await projected.ToPagedResultAsync(
+                filter,
+                cancellationToken);
+        }
+
+        private static readonly Dictionary<string, Expression<Func<JobMatch, object>>> SortColumns = new()
+        {
+            ["company"] = x => x.JobDescription.CompanyName,
+
+            ["title"] = x => x.JobDescription.Title,
+
+            ["matchscore"] = x => x.MatchScore,
+
+            ["createdat"] = x => x.CreatedAt
+        };
     }
 }

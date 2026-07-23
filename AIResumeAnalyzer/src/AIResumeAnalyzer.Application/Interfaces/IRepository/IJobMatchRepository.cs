@@ -1,4 +1,6 @@
-﻿using AIResumeAnalyzer.Domain.Entities;
+﻿using AIResumeAnalyzer.Application.Common.Pagination;
+using AIResumeAnalyzer.Application.Features.JobMatching.DTO;
+using AIResumeAnalyzer.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +22,7 @@ namespace AIResumeAnalyzer.Application.Interfaces.IRepository
         Task<List<JobMatch>> GetRecentAsync(Guid userId, int take, CancellationToken cancellationToken);
 
         Task<List<JobMatch>>GetAllAsync(Guid userId, CancellationToken cancellationToken);
+
+        Task<PagedResult<JobMatchHistoryItemResponse>> GetHistoryAsync(Guid userId, JobMatchFilterParams filter, CancellationToken cancellationToken);
     }
 }
